@@ -8,7 +8,7 @@
     "watch": "tsc-watch --esModuleInterop src/server.ts",
     "build": "tsc",
     "migrate-up": "db-migrate up",
-    "test": "yarn build && yarn migrate-up && jasmine"
+    "test": "yarn build && yarn migrate-up && jasmine && db-migrate reset"
   },
   "author": "Udacity",
   "license": "ISC",

@@ -20,4 +20,16 @@ export class Product {
       throw new Error(`No product has been created. Error: ${error}`);
     }
   }
+
+  async getAllProducts(): Promise<ProductType[]> {
+    try {
+      const conn = await pool.connect();
+      const sql = "SELECT * FROM products";
+      const result = await conn.query(sql);
+      conn.release();
+      return result.rows;
+    } catch (error) {
+      throw new Error(`Couldn't retrieve products. Error: ${error}`);
+    }
+  }
 }
