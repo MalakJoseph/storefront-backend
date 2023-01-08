@@ -49,31 +49,17 @@ export class Product {
     }
   }
 
-  async topExpensive(count: number): Promise<ProductType[]> {
+  async deleteProduct(id: number): Promise<Record<"id", number>> {
     try {
       const conn = await pool.connect();
-      const sql = "SELECT * FROM products ORDER BY price DESC LIMIT $1";
-      const result = await conn.query(sql, [count]);
+      const sql = "DELETE FROM products WHERE id=$1 RETURNING id";
+      const result = await conn.query(sql, [id]);
 
       conn.release();
 
-      return result.rows;
+      return result.rows[0];
     } catch (error) {
-      throw new Error(`Feature needs some fixes. Error: ${error}`);
-    }
-  }
-
-  async getProductsByCategory(category: string): Promise<ProductType[]> {
-    try {
-      const conn = await pool.connect();
-      const sql = "SELECT * FROM products WHERE category=$1";
-      const result = await conn.query(sql, [category]);
-
-      conn.release();
-
-      return result.rows;
-    } catch (error) {
-      throw new Error(`No products found with this category. Error: ${error}`);
+      throw new Error(`No product found with this id. Error: ${error}`);
     }
   }
 }

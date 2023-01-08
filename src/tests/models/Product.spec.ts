@@ -1,52 +1,29 @@
 import { Product } from "../../models";
-import { AddProductType, ProductType } from "../../types";
+import { productPrototype } from "../../consts";
 
 const product = new Product();
 
-let productID = 1;
-const productToAdd: AddProductType = {
-  name: "Ticket",
-  price: 500,
-  category: "Entertainment",
-};
-const fullProduct: ProductType = { ...productToAdd, id: productID };
+const productID = 1;
+const fullProduct = { ...productPrototype, id: productID };
 
 describe("Product Model Suite", () => {
   it("Should add a product", async () => {
-    const result = await product.addProduct(productToAdd);
-    productID = result.id;
-
+    const result = await product.addProduct(productPrototype);
     expect(result).toEqual(fullProduct);
   });
 
   it("Should fetch all products", async () => {
     const result = await product.getAllProducts();
-
     expect(result).toEqual([fullProduct]);
   });
 
-  it("Should fetch products with specific id", async () => {
+  it("Should fetch product with specific id", async () => {
     const result = await product.getProductByID(productID);
-
     expect(result).toEqual(fullProduct);
   });
 
-  it("Should fetch Top 5 most popular products", async () => {
-    const anotherProduct = {
-      id: 2,
-      name: "Watch",
-      price: 2000,
-      category: "Jewelry",
-    };
-    await product.addProduct(anotherProduct);
-    const result = await product.topExpensive(5);
-
-    expect(result).toEqual([anotherProduct, fullProduct]);
-  });
-
-  it("Should fetch products with specific category", async () => {
-    const result = await product.getProductsByCategory("Entertainment");
-
-    expect(result).toEqual([fullProduct]);
+  it("Should delete product with specific id", async () => {
+    const result = await product.deleteProduct(productID);
+    expect(result.id).toEqual(productID);
   });
 });
