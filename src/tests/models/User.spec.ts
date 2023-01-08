@@ -14,6 +14,11 @@ describe("User Model Suite", () => {
     expect(result).toEqual(fullUser);
   });
 
+  it("Should fetch all users", async () => {
+    const result = await user.getUsers();
+    expect(result).toEqual([fullUser]);
+  });
+
   it("Should fetch user by id", async () => {
     const result = await user.getUserById(userID);
     expect(result.id).toBe(fullUser.id);

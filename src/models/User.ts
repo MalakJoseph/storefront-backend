@@ -21,6 +21,20 @@ export class User {
     }
   }
 
+  async getUsers(): Promise<UserType[]> {
+    try {
+      const conn = await pool.connect();
+      const sql = "SELECT * FROM users";
+      const result = await conn.query<UserType>(sql);
+
+      conn.release();
+
+      return result.rows;
+    } catch (error) {
+      throw new Error(`Couldn't retrieve users. Error: ${error}`);
+    }
+  }
+
   async getUserById(userID: UserType["id"]): Promise<Record<"id", number>> {
     try {
       const conn = await pool.connect();
@@ -31,7 +45,7 @@ export class User {
 
       return result.rows[0];
     } catch (error) {
-      throw new Error(`Wrong credentials. Error: ${error}`);
+      throw new Error(`No user found with this id. Error: ${error}`);
     }
   }
 }
