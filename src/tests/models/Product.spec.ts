@@ -12,8 +12,8 @@ const productToAdd: AddProductType = {
 const fullProduct: ProductType = { ...productToAdd, id: productID };
 
 describe("Product Model Suite", () => {
-  it("Should create a product", async () => {
-    const result = await product.createProduct(productToAdd);
+  it("Should add a product", async () => {
+    const result = await product.addProduct(productToAdd);
     productID = result.id;
 
     expect(result).toEqual(fullProduct);
@@ -38,7 +38,7 @@ describe("Product Model Suite", () => {
       price: 2000,
       category: "Jewelry",
     };
-    await product.createProduct(anotherProduct);
+    await product.addProduct(anotherProduct);
     const result = await product.topExpensive(5);
 
     expect(result).toEqual([anotherProduct, fullProduct]);

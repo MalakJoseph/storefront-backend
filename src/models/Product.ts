@@ -2,7 +2,7 @@ import pool from "../database";
 import { AddProductType, ProductType } from "../types";
 
 export class Product {
-  async createProduct(product: AddProductType): Promise<ProductType> {
+  async addProduct(product: AddProductType): Promise<ProductType> {
     try {
       const conn = await pool.connect();
       const sql =
@@ -17,7 +17,7 @@ export class Product {
 
       return result.rows[0];
     } catch (error) {
-      throw new Error(`No product has been created. Error: ${error}`);
+      throw new Error(`No product has been added. Error: ${error}`);
     }
   }
 
