@@ -10,13 +10,13 @@ const count = 5;
 describe("Services Suite", () => {
   it("Should add a products array", async () => {
     const result = await services.addProducts(productsArray);
-    const comparedTo = await product.getAllProducts();
+    const comparedTo = await product.getProducts();
 
     expect(result).toEqual(comparedTo);
   });
 
   it("Should fetch Top 5 most popular products", async () => {
-    const comparedTo = await product.getAllProducts();
+    const comparedTo = await product.getProducts();
     const sortedArray = [...comparedTo].sort((a, b) => b.price - a.price);
     const result = await services.topExpensive(count);
 
@@ -24,7 +24,7 @@ describe("Services Suite", () => {
   });
 
   it("Should fetch products with specific category", async () => {
-    const comparedTo = await product.getAllProducts();
+    const comparedTo = await product.getProducts();
     const filteredProductsArray = comparedTo.filter(
       (row) => row.category === "Entertainment"
     );

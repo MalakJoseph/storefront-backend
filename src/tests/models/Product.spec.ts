@@ -13,16 +13,16 @@ describe("Product Model Suite", () => {
   });
 
   it("Should fetch all products", async () => {
-    const result = await product.getAllProducts();
+    const result = await product.getProducts();
     expect(result).toEqual([fullProduct]);
   });
 
-  it("Should fetch product with specific id", async () => {
+  it("Should fetch product by id", async () => {
     const result = await product.getProductByID(productID);
     expect(result).toEqual(fullProduct);
   });
 
-  it("Should delete product with specific id", async () => {
+  it("Should delete product by id", async () => {
     const result = await product.deleteProduct(productID);
     expect(result.id).toEqual(productID);
   });

@@ -17,11 +17,11 @@ export class Product {
 
       return result.rows[0];
     } catch (error) {
-      throw new Error(`No product has been added. Error: ${error}`);
+      throw new Error(`Failed to create a product. Error: ${error}`);
     }
   }
 
-  async getAllProducts(): Promise<ProductType[]> {
+  async getProducts(): Promise<ProductType[]> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM products";
@@ -35,7 +35,7 @@ export class Product {
     }
   }
 
-  async getProductByID(id: number): Promise<ProductType> {
+  async getProductByID(id: ProductType["id"]): Promise<ProductType> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM products WHERE id=$1";
@@ -49,7 +49,7 @@ export class Product {
     }
   }
 
-  async deleteProduct(id: number): Promise<Record<"id", number>> {
+  async deleteProduct(id: ProductType["id"]): Promise<Record<"id", number>> {
     try {
       const conn = await pool.connect();
       const sql = "DELETE FROM products WHERE id=$1 RETURNING id";
@@ -59,7 +59,7 @@ export class Product {
 
       return result.rows[0];
     } catch (error) {
-      throw new Error(`No product found with this id. Error: ${error}`);
+      throw new Error(`Couldn't delete this product. Error: ${error}`);
     }
   }
 }
