@@ -7,7 +7,8 @@
     "start": "node dist/.",
     "watch": "tsc-watch --esModuleInterop src/server.ts",
     "build": "tsc",
-    "test": "yarn build && jasmine-ts"
+    "migrate-up": "db-migrate up",
+    "test": "yarn build && yarn migrate-up && jasmine"
   },
   "author": "Udacity",
   "license": "ISC",
@@ -26,7 +27,6 @@
     "@types/pg": "^8.6.6",
     "jasmine": "^4.5.0",
     "jasmine-spec-reporter": "^7.0.0",
-    "jasmine-ts": "^0.4.0",
     "ts-node": "^10.9.1",
     "tsc-watch": "^6.0.0"
   }
