@@ -1,14 +1,15 @@
 import { Product } from "../../models/Product";
+import { AddProductType, ProductType } from "../../types";
 
 const product = new Product();
 
-let productID: number = 1;
-const productToAdd = {
+let productID = 1;
+const productToAdd: AddProductType = {
   name: "Ticket",
   price: 500,
   category: "Entertainment",
 };
-const fullProduct = { ...productToAdd, id: productID };
+const fullProduct: ProductType = { ...productToAdd, id: productID };
 
 describe("Product Model Suite", () => {
   it("Should create a product", async () => {

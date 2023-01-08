@@ -1,8 +1,8 @@
 import pool from "../database";
-import { ProductType } from "../interfaces";
+import { AddProductType, ProductType } from "../types";
 
 export class Product {
-  async createProduct(product: Omit<ProductType, "id">): Promise<ProductType> {
+  async createProduct(product: AddProductType): Promise<ProductType> {
     try {
       const conn = await pool.connect();
       const sql =
