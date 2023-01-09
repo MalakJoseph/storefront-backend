@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "start": "node dist/.",
-    "watch": "tsc-watch --esModuleInterop src/server.ts",
+    "dev": "nodemon src/server.ts",
     "build": "tsc",
     "migrate-up": "db-migrate up",
     "test": "yarn build && yarn migrate-up && jasmine && db-migrate reset"
@@ -27,7 +27,7 @@
     "@types/pg": "^8.6.6",
     "jasmine": "^4.5.0",
     "jasmine-spec-reporter": "^7.0.0",
-    "ts-node": "^10.9.1",
-    "tsc-watch": "^6.0.0"
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1"
   }
 }
