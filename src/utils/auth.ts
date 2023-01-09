@@ -19,6 +19,7 @@ export const verifyAuth = (
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const generateToken = (body: any): string => {
   return jwt.sign(body, tokenSecret);
 };
