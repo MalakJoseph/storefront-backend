@@ -24,7 +24,7 @@ export class Services {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM products ORDER BY price DESC LIMIT $1";
-      const result = await conn.query(sql, [count]);
+      const result = await conn.query<ProductType>(sql, [count]);
 
       conn.release();
 
@@ -38,7 +38,7 @@ export class Services {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM products WHERE category=$1";
-      const result = await conn.query(sql, [category]);
+      const result = await conn.query<ProductType>(sql, [category]);
 
       conn.release();
 

@@ -7,7 +7,7 @@ export class Product {
       const conn = await pool.connect();
       const sql =
         "INSERT INTO products (name, price, category) VALUES ($1, $2, $3) RETURNING *";
-      const result = await conn.query(sql, [
+      const result = await conn.query<ProductType>(sql, [
         product.name,
         product.price,
         product.category,
@@ -25,7 +25,7 @@ export class Product {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM products";
-      const result = await conn.query(sql);
+      const result = await conn.query<ProductType>(sql);
 
       conn.release();
 
@@ -39,7 +39,7 @@ export class Product {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM products WHERE id=$1";
-      const result = await conn.query(sql, [id]);
+      const result = await conn.query<ProductType>(sql, [id]);
 
       conn.release();
 
@@ -53,7 +53,7 @@ export class Product {
     try {
       const conn = await pool.connect();
       const sql = "DELETE FROM products WHERE id=$1 RETURNING id";
-      const result = await conn.query(sql, [id]);
+      const result = await conn.query<Record<"id", number>>(sql, [id]);
 
       conn.release();
 

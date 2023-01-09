@@ -35,11 +35,11 @@ export class User {
     }
   }
 
-  async getUserById(userID: UserType["id"]): Promise<Record<"id", number>> {
+  async getUserById(userID: UserType["id"]): Promise<UserType> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM users WHERE id=$1";
-      const result = await conn.query<Record<"id", number>>(sql, [userID]);
+      const result = await conn.query<UserType>(sql, [userID]);
 
       conn.release();
 
