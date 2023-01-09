@@ -2,7 +2,7 @@ import pool from "../database";
 import { SignupType, UserType } from "../types";
 
 export class User {
-  async addUser(user: SignupType): Promise<UserType> {
+  async createUser(user: SignupType): Promise<UserType> {
     try {
       const conn = await pool.connect();
       const sql =

@@ -6,8 +6,8 @@ const user = new User();
 let userID: number;
 
 describe("User Model Suite", () => {
-  it("Should add a user", async () => {
-    const result = await user.addUser(userCredentials);
+  it("Should create a user", async () => {
+    const result = await user.createUser(userCredentials);
     userID = result.id;
     expect(result).toEqual({ ...userCredentials, id: userID });
   });

@@ -8,7 +8,7 @@ const saltRounds = process.env.SALT_ROUNDS as string;
 
 const user = new User();
 
-async function addUser(req: Request, res: Response) {
+async function createUser(req: Request, res: Response) {
   try {
     const { firstname, lastname, password } = req.body;
 
@@ -21,7 +21,7 @@ async function addUser(req: Request, res: Response) {
       parseInt(saltRounds)
     );
 
-    const result = await user.addUser({
+    const result = await user.createUser({
       firstname,
       lastname,
       password: hashedPassword,
@@ -36,7 +36,7 @@ async function addUser(req: Request, res: Response) {
 }
 
 const userRoutes = (app: Application) => {
-  app.post("/users", addUser);
+  app.post("/users", createUser);
 };
 
 export default userRoutes;
