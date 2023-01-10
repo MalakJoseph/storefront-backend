@@ -11,14 +11,17 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index `'products/' [GET]`
 - Show `'products/:id' [GET]`
 - Create [token required] `'products/' [POST] (token)`
+- Delete [token required] `'products/:id' [DELETE] (token)`
+- Product bulk upload (args: array of products) `'products' [POST] (token)` **_HOT_**
 - Top 5 most popular products `'products?count=5' [GET]`
-- Products by category (args: product category) `'products/:cateogry' [GET]`
+- Products by category (args: product category) `'products/:category' [GET]`
 
 #### Users
 
 - Index [token required] `'users/' [GET] (token)`
 - Show [token required] `'users/:id' [GET] (token)`
-- Create N[token required] `'users/' [POST] (token)`
+- Create [token required] `'users/' [POST] (token)`
+- Delete [token required] `'users/:id' [DELETE] (token)`
 
 #### Orders
 
