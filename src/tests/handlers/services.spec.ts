@@ -1,14 +1,16 @@
 import supertest from "supertest";
-import { productPrototype, userCredentials } from "../../consts";
+import { productsArray, userCredentials } from "../../consts";
 import pool from "../../database";
 import app from "../../server";
+import { Category } from "../../types";
 
 const request = supertest(app);
 
-const productID = 1;
+const count = 3;
+const category: Category = "Entertainment";
 let userToken = "Bearer ";
 
-describe("Products Handler Suite", () => {
+describe("Services Suite", () => {
   beforeAll(async () => {
     const result = await request.post("/users").send(userCredentials);
     userToken += result.body;
@@ -22,31 +24,23 @@ describe("Products Handler Suite", () => {
     conn.release();
   });
 
-  it("Should create a product sucessfully", async () => {
+  it("Should add multiple products in array", async () => {
     const result = await request
-      .post("/products")
+      .post("/products/bulk")
       .set("Authorization", userToken)
-      .send(productPrototype);
+      .send(productsArray);
 
     expect(result.statusCode).toBe(201);
   });
 
-  it("Should fetch all products sucessfully", async () => {
-    const result = await request.get("/products");
+  it("Should fetch top expensive products by count", async () => {
+    const result = await request.get(`/products/sort?count=${count}`);
 
     expect(result.statusCode).toBe(200);
   });
 
-  it("Should fetch product by id sucessfully", async () => {
-    const result = await request.get(`/products/show/${productID}`);
-
-    expect(result.statusCode).toBe(200);
-  });
-
-  it("Should delete product by id sucessfully", async () => {
-    const result = await request
-      .delete(`/products/delete/${productID}`)
-      .set("Authorization", userToken);
+  it("Should fetch products by category", async () => {
+    const result = await request.get(`/products/filter?category=${category}`);
 
     expect(result.statusCode).toBe(200);
   });
