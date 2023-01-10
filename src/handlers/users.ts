@@ -55,10 +55,20 @@ async function getUserByID(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function deleteUser(req: Request, res: Response, next: NextFunction) {
+  try {
+    const result = await user.deleteUser(+req.params.id);
+    res.status(200).json(result);
+  } catch (error: any) {
+    next({ status: 401, message: error.message });
+  }
+}
+
 const userRoutes = (app: Application) => {
   app.post("/users", createUser);
   app.get("/users", auth, getUsers);
   app.get("/users/:id", auth, getUserByID);
+  app.delete("/users/:id", auth, deleteUser);
 };
 
 export default userRoutes;

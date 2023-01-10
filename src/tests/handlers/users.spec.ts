@@ -28,4 +28,12 @@ describe("User Handler Suite", () => {
 
     expect(result.statusCode).toBe(200);
   });
+
+  it("Should delete user by id sucessfully", async () => {
+    const result = await request
+      .delete(`/users/${userID}`)
+      .set("Authorization", userToken);
+
+    expect(result.statusCode).toBe(200);
+  });
 });

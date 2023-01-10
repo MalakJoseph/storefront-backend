@@ -54,4 +54,18 @@ export class User {
       throw new Error(`No user found with this id. ${error}`);
     }
   }
+
+  async deleteUser(id: UserType["id"]): Promise<Record<"id", number>> {
+    try {
+      const conn = await pool.connect();
+      const sql = "DELETE FROM users WHERE id=$1 RETURNING id";
+      const result = await conn.query<Record<"id", number>>(sql, [id]);
+
+      conn.release();
+
+      return result.rows[0];
+    } catch (error) {
+      throw new Error(`Couldn't delete this user. ${error}`);
+    }
+  }
 }

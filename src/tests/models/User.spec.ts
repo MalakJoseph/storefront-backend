@@ -25,4 +25,9 @@ describe("User Model Suite", () => {
     const { password, ...rest } = userCredentials;
     expect(result).toEqual({ ...rest, id: userID });
   });
+
+  it("Should delete product by id", async () => {
+    const result = await user.deleteUser(userID);
+    expect(result.id).toBe(userID);
+  });
 });
