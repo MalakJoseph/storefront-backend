@@ -9,7 +9,7 @@ const address = "http://localhost:3000";
 app.use(bodyParser.json());
 
 app.get("/", function (_req: Request, res: Response) {
-  res.send("Hello World!");
+  res.send("Welcome to Storefront Backend!");
 });
 
 productsRoutes(app);

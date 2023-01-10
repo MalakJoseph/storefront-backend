@@ -7,7 +7,7 @@ const request = supertest(app);
 const userID = 1;
 let userToken = "Bearer ";
 
-describe("User Handler Suite", () => {
+describe("Users Handler Suite", () => {
   it("Should create a user sucessfully", async () => {
     const result = await request.post("/users").send(userCredentials);
     userToken += result.body;
