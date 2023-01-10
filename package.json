@@ -9,7 +9,7 @@
     "start": "yarn build && node dist/server.js",
     "dev": "nodemon src/server.ts",
     "migrate-up": "db-migrate up",
-    "test": "yarn build && yarn migrate-up && jasmine && db-migrate reset",
+    "test": "yarn build && yarn migrate-up && jasmine && db-migrate reset --env test",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier --write src/**/*.ts"
   },
