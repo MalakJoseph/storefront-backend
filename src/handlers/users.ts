@@ -1,8 +1,8 @@
-import { Application, Request, Response } from "express";
+import { Application, NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { User } from "../models";
-import auth from "../middlewares/auth";
+import { auth } from "../middlewares";
 
 const pepper = process.env.BCRYPT_PASSWORD as string;
 const saltRounds = process.env.SALT_ROUNDS as string;
@@ -10,7 +10,7 @@ const tokenSecret = process.env.TOKEN_SECRET as string;
 
 const user = new User();
 
-async function createUser(req: Request, res: Response) {
+async function createUser(req: Request, res: Response, next: NextFunction) {
   try {
     const { firstname, lastname, password } = req.body;
 
@@ -32,29 +32,26 @@ async function createUser(req: Request, res: Response) {
     const token = jwt.sign(result, tokenSecret);
 
     res.status(201).json(token);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    next({ status: 400, message: error.message });
   }
 }
 
-async function getUsers(_req: Request, res: Response) {
+async function getUsers(_req: Request, res: Response, next: NextFunction) {
   try {
     const result = await user.getUsers();
     res.status(200).json(result);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    res.status(401).json({ error: error.message });
+    next({ status: 401, message: error.message });
   }
 }
 
-async function getUserByID(req: Request, res: Response) {
+async function getUserByID(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await user.getUserByID(+req.params.id);
     res.status(200).json(result);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    res.status(401).json({ error: error.message });
+    next({ status: 401, message: error.message });
   }
 }
 

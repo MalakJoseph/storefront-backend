@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 const tokenSecret: string = process.env.TOKEN_SECRET as string;
 
-const auth = (req: Request, res: Response, next: NextFunction): void => {
+const auth = (req: Request, _res: Response, next: NextFunction): void => {
   try {
     const authorizationHeader = req.headers.authorization;
 
@@ -15,10 +15,9 @@ const auth = (req: Request, res: Response, next: NextFunction): void => {
     jwt.verify(token, tokenSecret);
 
     next();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    res.status(401).json({ error: error.message });
+    next({ status: 401, message: error.message });
   }
 };
 
-export default auth;
+export { auth };
