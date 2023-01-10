@@ -1,10 +1,12 @@
 import { Application, Request, Response } from "express";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { User } from "../models";
-import { generateToken, verifyAuth } from "../utils";
+import auth from "../middlewares/auth";
 
 const pepper = process.env.BCRYPT_PASSWORD as string;
 const saltRounds = process.env.SALT_ROUNDS as string;
+const tokenSecret = process.env.TOKEN_SECRET as string;
 
 const user = new User();
 
@@ -27,7 +29,7 @@ async function createUser(req: Request, res: Response) {
       password: hashedPassword,
     });
 
-    const token = generateToken(result);
+    const token = jwt.sign(result, tokenSecret);
 
     res.status(201).json(token);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -58,8 +60,8 @@ async function getUserByID(req: Request, res: Response) {
 
 const userRoutes = (app: Application) => {
   app.post("/users", createUser);
-  app.get("/users", verifyAuth, getUsers);
-  app.get("/users/:id", verifyAuth, getUserByID);
+  app.get("/users", auth, getUsers);
+  app.get("/users/:id", auth, getUserByID);
 };
 
 export default userRoutes;

@@ -4,7 +4,7 @@ import app from "../../server";
 
 const request = supertest(app);
 
-const userID = "1";
+const userID = 1;
 let userToken = "Bearer ";
 
 describe("User Handler Suite", () => {

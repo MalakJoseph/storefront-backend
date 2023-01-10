@@ -1,14 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { UserType } from "../types";
 
 const tokenSecret: string = process.env.TOKEN_SECRET as string;
 
-export const verifyAuth = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
+const auth = (req: Request, res: Response, next: NextFunction): void => {
   try {
     const authorizationHeader = req.headers.authorization;
 
@@ -26,6 +21,4 @@ export const verifyAuth = (
   }
 };
 
-export const generateToken = (body: UserType): string => {
-  return jwt.sign(body, tokenSecret);
-};
+export default auth;
