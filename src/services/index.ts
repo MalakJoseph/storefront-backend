@@ -14,9 +14,7 @@ export class Services {
 
       return result;
     } catch (error) {
-      throw new Error(
-        `Sorry, bulk upload didn't go as expected. Error: ${error}`
-      );
+      throw new Error(`Sorry, bulk upload didn't go as expected. ${error}`);
     }
   }
 
@@ -30,7 +28,7 @@ export class Services {
 
       return result.rows;
     } catch (error) {
-      throw new Error(`Feature needs some fixes. Error: ${error}`);
+      throw new Error(`Feature needs some fixes. ${error}`);
     }
   }
 
@@ -44,7 +42,7 @@ export class Services {
 
       return result.rows;
     } catch (error) {
-      throw new Error(`No products found with this category. Error: ${error}`);
+      throw new Error(`No products found with this category. ${error}`);
     }
   }
 }

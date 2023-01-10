@@ -17,7 +17,7 @@ export class User {
 
       return result.rows[0];
     } catch (error) {
-      throw new Error(`Failed to create a user. Error ${error}`);
+      throw new Error(`Failed to create a user. ${error}`);
     }
   }
 
@@ -35,7 +35,7 @@ export class User {
 
       return result.rows;
     } catch (error) {
-      throw new Error(`Couldn't retrieve users. Error: ${error}`);
+      throw new Error(`Couldn't retrieve users. ${error}`);
     }
   }
 
@@ -51,7 +51,7 @@ export class User {
 
       return result.rows[0];
     } catch (error) {
-      throw new Error(`No user found with this id. Error: ${error}`);
+      throw new Error(`No user found with this id. ${error}`);
     }
   }
 }

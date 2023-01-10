@@ -17,7 +17,7 @@ export class Product {
 
       return result.rows[0];
     } catch (error) {
-      throw new Error(`Failed to create a product. Error: ${error}`);
+      throw new Error(`Failed to create a product. ${error}`);
     }
   }
 
@@ -31,7 +31,7 @@ export class Product {
 
       return result.rows;
     } catch (error) {
-      throw new Error(`Couldn't retrieve products. Error: ${error}`);
+      throw new Error(`Couldn't retrieve products. ${error}`);
     }
   }
 
@@ -45,7 +45,7 @@ export class Product {
 
       return result.rows[0];
     } catch (error) {
-      throw new Error(`No product found with this id. Error: ${error}`);
+      throw new Error(`No product found with this id. ${error}`);
     }
   }
 
@@ -59,7 +59,7 @@ export class Product {
 
       return result.rows[0];
     } catch (error) {
-      throw new Error(`Couldn't delete this product. Error: ${error}`);
+      throw new Error(`Couldn't delete this product. ${error}`);
     }
   }
 }
