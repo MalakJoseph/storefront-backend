@@ -1,2 +1,2 @@
-export * from "./Product";
-export * from "./User";
+export { Product } from "./Product";
+export { User } from "./User";

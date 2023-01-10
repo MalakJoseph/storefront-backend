@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
-import userRoutes from "./handlers/users";
 import { errorHandler } from "./middlewares";
+import { userRoutes } from "./handlers";
 
 const app: express.Application = express();
 const address = "http://localhost:3000";

@@ -71,4 +71,4 @@ const userRoutes = (app: Application) => {
   app.delete("/users/:id", auth, deleteUser);
 };
 
-export default userRoutes;
+export { userRoutes };
