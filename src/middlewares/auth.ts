@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from "express";
+import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+
+dotenv.config();
 
 const tokenSecret: string = process.env.TOKEN_SECRET as string;
 

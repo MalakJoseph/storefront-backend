@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import { errorHandler } from "./middlewares";
-import { productsRoutes, userRoutes } from "./handlers";
+import { productsRoutes, servicesRoutes, userRoutes } from "./handlers";
 
 const app: express.Application = express();
 const address = "http://localhost:3000";
@@ -14,6 +14,7 @@ app.get("/", function (_req: Request, res: Response) {
 
 productsRoutes(app);
 userRoutes(app);
+servicesRoutes(app);
 
 app.use(errorHandler);
 

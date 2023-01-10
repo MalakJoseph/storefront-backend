@@ -54,8 +54,8 @@ async function deleteProduct(req: Request, res: Response, next: NextFunction) {
 const productsRoutes = (app: Application) => {
   app.post("/products", auth, addProduct);
   app.get("/products", getProducts);
-  app.get("/products/:id", getProductByID);
-  app.delete("/products/:id", auth, deleteProduct);
+  app.get("/products/show/:id", getProductByID);
+  app.delete("/products/delete/:id", auth, deleteProduct);
 };
 
 export { productsRoutes };

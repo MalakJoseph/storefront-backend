@@ -8,7 +8,7 @@ export class Services {
   async addProducts(productsArray: AddProductType[]): Promise<ProductType[]> {
     try {
       const conn = await pool.connect();
-      const result = await addProductsHandler(productsArray);
+      const result = await bulkUpload(productsArray);
 
       conn.release();
 
@@ -28,7 +28,7 @@ export class Services {
 
       return result.rows;
     } catch (error) {
-      throw new Error(`Feature needs some fixes. ${error}`);
+      throw new Error(`No products found. ${error}`);
     }
   }
 
@@ -47,8 +47,10 @@ export class Services {
   }
 }
 
-// until moving to handlers
-async function addProductsHandler(
+/**
+ * Creates products with each instance of the array passed
+ */
+async function bulkUpload(
   productsArray: AddProductType[]
 ): Promise<ProductType[]> {
   const addedProducts = await Promise.all(
