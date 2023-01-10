@@ -14,11 +14,15 @@ describe("User Model Suite", () => {
 
   it("Should fetch all users", async () => {
     const result = await user.getUsers();
-    expect(result).toContain({ ...userCredentials, id: userID });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...rest } = userCredentials;
+    expect(result).toContain({ ...rest, id: userID });
   });
 
   it("Should fetch user by id", async () => {
     const result = await user.getUserByID(userID);
-    expect(result).toEqual({ ...userCredentials, id: userID });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...rest } = userCredentials;
+    expect(result).toEqual({ ...rest, id: userID });
   });
 });

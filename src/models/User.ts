@@ -21,13 +21,17 @@ export class User {
     }
   }
 
-  async getUsers(): Promise<UserType[]> {
+  async getUsers(): Promise<Partial<UserType>[]> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM users";
-      const result = await conn.query<UserType>(sql);
+      const result = await conn.query<Partial<UserType>>(sql);
 
       conn.release();
+
+      result.rows.forEach((row) => {
+        delete row.password;
+      });
 
       return result.rows;
     } catch (error) {
@@ -35,13 +39,15 @@ export class User {
     }
   }
 
-  async getUserByID(userID: UserType["id"]): Promise<UserType> {
+  async getUserByID(userID: UserType["id"]): Promise<Partial<UserType>> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM users WHERE id=$1";
-      const result = await conn.query<UserType>(sql, [userID]);
+      const result = await conn.query<Partial<UserType>>(sql, [userID]);
 
       conn.release();
+
+      delete result.rows[0].password;
 
       return result.rows[0];
     } catch (error) {
