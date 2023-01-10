@@ -18,7 +18,7 @@ describe("User Model Suite", () => {
   });
 
   it("Should fetch user by id", async () => {
-    const result = await user.getUserById(userID);
+    const result = await user.getUserByID(userID);
     expect(result).toEqual({ ...userCredentials, id: userID });
   });
 });

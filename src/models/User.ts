@@ -35,7 +35,7 @@ export class User {
     }
   }
 
-  async getUserById(userID: UserType["id"]): Promise<UserType> {
+  async getUserByID(userID: UserType["id"]): Promise<UserType> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM users WHERE id=$1";
