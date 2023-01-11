@@ -6,10 +6,10 @@ export class Order {
     try {
       const conn = await pool.connect();
       const sql =
-        "INSERT INTO orders (status, user_id) VALUES ($1, $2) RETURNING *";
+        "INSERT INTO orders (user_id, status) VALUES ($1, $2) RETURNING *";
       const result = await conn.query<OrderType>(sql, [
-        order.status,
         order.user_id,
+        order.status,
       ]);
 
       conn.release();

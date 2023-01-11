@@ -4,8 +4,8 @@ import { firstOrder, userCredentials } from "../../consts";
 const order = new Order();
 const user = new User();
 
-let orderID: number;
 let userID: number;
+let orderID: number;
 let created_at: Date;
 
 describe("Order Model Suite", () => {

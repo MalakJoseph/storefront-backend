@@ -1,6 +1,12 @@
 import pool from "../database";
 import { Product } from "../models";
-import { AddProductType, Category, ProductType } from "../types";
+import {
+  AddProductType,
+  Category,
+  OrderType,
+  ProductType,
+  UserType,
+} from "../types";
 
 const product = new Product();
 
@@ -43,6 +49,50 @@ export class Services {
       return result.rows;
     } catch (error) {
       throw new Error(`No products found with this category. ${error}`);
+    }
+  }
+
+  async currentOrdersByUser(user_id: UserType["id"]): Promise<OrderType[]> {
+    try {
+      const conn = await pool.connect();
+      const sql = "SELECT * FROM orders WHERE user_id=$1";
+      const result = await conn.query<OrderType>(sql, [user_id]);
+
+      conn.release();
+
+      return result.rows;
+    } catch (error) {
+      throw new Error(`There are no active orders. ${error}`);
+    }
+  }
+
+  async placeOrder(order_id: OrderType["id"]): Promise<OrderType> {
+    try {
+      const conn = await pool.connect();
+      const sql =
+        "UPDATE orders SET status='completed' WHERE id=$1 RETURNING *;";
+      const result = await conn.query<OrderType>(sql, [order_id]);
+
+      conn.release();
+
+      return result.rows[0];
+    } catch (error) {
+      throw new Error(`Something went wrong. ${error}`);
+    }
+  }
+
+  async completedOrdersByUser(user_id: UserType["id"]): Promise<OrderType[]> {
+    try {
+      const conn = await pool.connect();
+      const sql =
+        "SELECT * FROM orders WHERE user_id=$1 AND status='completed'";
+      const result = await conn.query<OrderType>(sql, [user_id]);
+
+      conn.release();
+
+      return result.rows;
+    } catch (error) {
+      throw new Error(`There are no completed orders by this user. ${error}`);
     }
   }
 }
