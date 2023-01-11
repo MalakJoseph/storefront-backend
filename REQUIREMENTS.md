@@ -32,11 +32,6 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Product
 
-- id
-- name
-- price
-- category
-
 ```
 products (
   id SERIAL PRIMARY KEY,
@@ -48,34 +43,33 @@ products (
 
 #### User
 
-- id
-- firstName
-- lastName
-- password
-
 ```
 users (
   id SERIAL PRIMARY KEY,
-  firstName VARCHAR(50) NOT NULL,
-  lastName VARCHAR(50) NOT NULL,
-  password VARCHAR(50) NOT NULL
-)
+  firstname VARCHAR(50) NOT NULL,
+  lastname VARCHAR(50) NOT NULL,
+  password VARCHAR(100) NOT NULL
+);
 ```
 
 #### Orders
 
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
-
 ```
 orders (
   id SERIAL PRIMARY KEY,
-  product_id INTEGER FOREIGN KEY REFERENCES products(id),
-  quantity INTEGER,
-  user_id INTEGER FOREIGN KEY REFERENCES users(id),
-  status VARCHAR(20)
-)
+  status VARCHAR(20),
+  user_id INTEGER REFERENCES users(id) NOT NULL ON DELETE CASCADE,
+  created_at timestamp default current_timestamp
+);
+```
+
+#### Order Products
+
+```
+order_products (
+  id SERIAL PRIMARY KEY,
+  quantity INTEGER DEFAULT 1,
+  order_id INTEGER REFERENCES orders(id) NOT NULL,
+  product_id INTEGER REFERENCES products(id) NOT NULL,
+);
 ```
