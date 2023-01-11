@@ -1,57 +1,70 @@
-# Storefront Backend Project
+# Storefront Backend
 
-## Getting Started
+## Table of Contents
 
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
+- [About the Project](#about-the-project)
+- [Technologies Used](#technologies-used)
+- [Steps to run the Project](#steps-to-run-the-project)
+  - [Installing and Environment Setup](#installing-and-environment-setup)
+  - [Database Creation & Migration](#database-creation-and-migration)
+- [Scripts available](#scripts-available)
+- [License](#license)
 
-## Required Technologies
+### About the Project
 
-Your application must make use of the following libraries:
+**Storefront Backend** is a Udacity Full-Stack Nanodegree project which demonstrates the capabilites of using `Nodejs` as a backend language, `Express` to manipulate servers and `Postgres` as DBMS.
 
-- Postgres for the database
-- Node/Express for the application logic
-- dotenv from npm for managing environment variables
-- db-migrate from npm for migrations
-- jsonwebtoken from npm for working with JWTs
-- jasmine from npm for testing
+The project is the backend-side of a Storefront project with handling the incoming requests and APIs across the Express server that talks to Postgres database.
 
-## Steps to Completion
+All models and handlers are tested using Jasmine.
 
-### 1. Plan to Meet Requirements
+### Technologies used
 
-In this repo there is a `REQUIREMENTS.md` document which outlines what this API needs to supply for the frontend, as well as the agreed upon data shapes to be passed between front and backend. This is much like a document you might come across in real life when building or extending an API.
+- **_NodeJs_** => Backend Language
+- **_Express_** => Server Manipulation
+- **_PostgreSQL_** => DBMS
+- **_Typescript_**
+- **_prettier_** and **_eslint_** => Formatting and Linting
+- **_Jasmine_** => Unit Testing
+- **_JWT_** => Authentication
 
-Your first task is to read the requirements and update the document with the following:
+### Steps to Run The Project
 
-- Determine the RESTful route for each endpoint listed. Add the RESTful route and HTTP verb to the document so that the frontend developer can begin to build their fetch requests.  
-  **Example**: A SHOW route: 'blogs/:id' [GET]
+- #### Installing and Environment Setup
 
-- Design the Postgres database tables based off the data shape requirements. Add to the requirements document the database tables and columns being sure to mark foreign keys.  
-  **Example**: You can format this however you like but these types of information should be provided
-  Table: Books (id:varchar, title:varchar, author:varchar, published_year:varchar, publisher_id:string[foreign key to publishers table], pages:number)
+1. Clone the repository by running this command
+   `git clone https://github.com/MalakJoseph/storefront-backend.git`.
+2. Go to the project directory `cd storefront-backend`.
+3. Install packages with `yarn install`.
+4. Clone a copy of `.env.example` into `.env`.
+5. Follow the instructions below to get you start...
 
-**NOTE** It is important to remember that there might not be a one to one ratio between data shapes and database tables. Data shapes only outline the structure of objects being passed between frontend and API, the database may need multiple tables to store a single shape.
+- #### Database Creation and Migration
 
-### 2. DB Creation and Migrations
+1. Switch the terminal user from Root (the default) to postgres, which we will use to access the database `psql -U postgres`
 
-Now that you have the structure of the databse outlined, it is time to create the database and migrations. Add the npm packages dotenv and db-migrate that we used in the course and setup your Postgres database. If you get stuck, you can always revisit the database lesson for a reminder.
+2. In psql run the following
+   - For **Development**
+     - `CREATE DATABASE storefront_backend;`
+     - `\c storefront_backend`
+   - For **Testing**
+     - `CREATE DATABASE storefront_backend_test;`
+     - `\c storefront_backend_test`
+3. On another terminal run
+   - `yarn`
+   - `yarn migrate-up`
 
-You must also ensure that any sensitive information is hashed with bcrypt. If any passwords are found in plain text in your application it will not pass.
+Don't forget to alter between _development_ and _testing_ databases using `NODE_ENV` in `.env` file.
 
-### 3. Models
+### Scripts available
 
-Create the models for each database table. The methods in each model should map to the endpoints in `REQUIREMENTS.md`. Remember that these models should all have test suites and mocks.
+1. `"start"` to run the production version from the dist folder.
+2. `"dev"` to run the development version using **nodemon**.
+3. `"migrate-up"` syncing the database by running migration.
+4. `"test"` test using **Jasmine** and clear the test-database after.
+5. `"lint"` for linting with **eslint**.
+6. `"prettier"` formatting.
 
-### 4. Express Handlers
+### License
 
-Set up the Express handlers to route incoming requests to the correct model method. Make sure that the endpoints you create match up with the enpoints listed in `REQUIREMENTS.md`. Endpoints must have tests and be CORS enabled.
-
-### 5. JWTs
-
-Add JWT functionality as shown in the course. Make sure that JWTs are required for the routes listed in `REQUIUREMENTS.md`.
-
-### 6. QA and `README.md`
-
-Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database.
-
-Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+This project is licensed under the terms of the ISC license.
