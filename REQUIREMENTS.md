@@ -25,8 +25,13 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Orders
 
-- Current Order by user (args: user id)[token required] `'orders/:user_id' [GET] (token)`
-- Completed Orders by user (args: user id)[token required] `'orders/:user_id?completed=true' [GET] (token)`
+- Index [token required] `'orders/' [GET]`
+- Show [token required] `'orders/:id' [GET]`
+- Create [token required] `'orders/' [POST]`
+- Delete [token required] `'orders/:id' [DELETE]`
+- Current Orders by user (args: user id)[token required] `'orders/:user_id' [GET] (token)`
+- Place Order (args: order id)[token required] `'orders/:order_id' [PUT] (token)` // to set status to `completed`
+- Completed Orders by user (args: user id)[token required] `'orders/:user_id/completed' [GET] (token)`
 
 ## Data Shapes
 
