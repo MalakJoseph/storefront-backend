@@ -11,7 +11,7 @@ let userToken = "Bearer ";
 describe("Products Handler Suite", () => {
   beforeAll(async () => {
     const result = await request.post("/users").send(userCredentials);
-    userToken += result.body;
+    userToken += result.body.token;
   });
 
   afterAll(async () => {

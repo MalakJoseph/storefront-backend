@@ -13,7 +13,7 @@ let userToken = "Bearer ";
 describe("Services Suite", () => {
   beforeAll(async () => {
     const result = await request.post("/users").send(userCredentials);
-    userToken += result.body;
+    userToken += result.body.token;
   });
 
   afterAll(async () => {

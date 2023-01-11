@@ -31,7 +31,7 @@ async function createUser(req: Request, res: Response, next: NextFunction) {
 
     const token = jwt.sign(result, tokenSecret);
 
-    res.status(201).json(token);
+    res.status(201).json({ token, id: result.id });
   } catch (error: any) {
     next({ status: 400, message: error.message });
   }

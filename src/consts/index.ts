@@ -1,4 +1,6 @@
-import { AddProductType, CreateUserType } from "../types";
+import { AddProductType, CreateOrderType, CreateUserType } from "../types";
+
+// Product
 
 const firstProduct: AddProductType = {
   name: "Product A",
@@ -34,10 +36,26 @@ const productsArray = [
   fifthProduct,
 ];
 
+// User
+
 const userCredentials: CreateUserType = {
   firstname: "Malak",
   lastname: "Joseph",
   password: "123123",
+};
+
+// Order
+
+const firstOrder: CreateOrderType = {
+  user_id: 1,
+  status: "active",
+};
+const secondOrder: CreateOrderType = {
+  user_id: 1,
+};
+const thirdOrder: CreateOrderType = {
+  user_id: 1,
+  status: "completed",
 };
 
 export {
@@ -48,4 +66,7 @@ export {
   fifthProduct,
   productsArray,
   userCredentials,
+  firstOrder,
+  secondOrder,
+  thirdOrder,
 };

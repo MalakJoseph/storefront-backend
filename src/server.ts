@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import { errorHandler } from "./middlewares";
 import { productsRoutes, servicesRoutes, userRoutes } from "./handlers";
+import { ordersRoutes } from "./handlers/orders";
 
 const app: express.Application = express();
 const address = "http://localhost:3000";
@@ -13,6 +14,7 @@ app.get("/", function (_req: Request, res: Response) {
 });
 
 productsRoutes(app);
+ordersRoutes(app);
 userRoutes(app);
 servicesRoutes(app);
 

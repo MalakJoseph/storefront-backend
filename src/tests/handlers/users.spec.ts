@@ -10,7 +10,7 @@ let userToken = "Bearer ";
 describe("Users Handler Suite", () => {
   it("Should create a user sucessfully", async () => {
     const result = await request.post("/users").send(userCredentials);
-    userToken += result.body;
+    userToken += result.body.token;
 
     expect(result.statusCode).toBe(201);
   });
