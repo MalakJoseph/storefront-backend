@@ -1,8 +1,11 @@
 {
   "name": "storefront_backend",
-  "version": "0.1.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "A project by Udacity to apply (Nodejs, Express & routes, unit tests with Jasmine, eslint, and prettier)",
   "main": "server.ts",
+  "author": "Malak Joseph",
+  "homepage": "https://github.com/MalakJoseph/storefront-backend#readme",
+  "license": "ISC",
   "scripts": {
     "clean": "rimraf dist/",
     "build": "yarn clean && tsc",
@@ -13,8 +16,6 @@
     "lint": "eslint . --ext .ts",
     "prettier": "prettier --write src/**/*.ts"
   },
-  "author": "Udacity",
-  "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.19.0",
