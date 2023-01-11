@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import { productPrototype, userCredentials } from "../../consts";
+import { firstProduct, userCredentials } from "../../consts";
 import pool from "../../database";
 import app from "../../server";
 
@@ -26,7 +26,7 @@ describe("Products Handler Suite", () => {
     const result = await request
       .post("/products")
       .set("Authorization", userToken)
-      .send(productPrototype);
+      .send(firstProduct);
 
     expect(result.statusCode).toBe(201);
   });

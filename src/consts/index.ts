@@ -1,10 +1,5 @@
 import { AddProductType, CreateUserType } from "../types";
 
-const productPrototype: AddProductType = {
-  name: "Product 0",
-  price: 100,
-  category: "Entertainment",
-};
 const firstProduct: AddProductType = {
   name: "Product A",
   price: 500,
@@ -46,7 +41,6 @@ const userCredentials: CreateUserType = {
 };
 
 export {
-  productPrototype,
   firstProduct,
   secondProduct,
   thirdProduct,
