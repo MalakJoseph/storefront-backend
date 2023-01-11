@@ -1,4 +1,4 @@
-import { AddProductType, SignupType } from "../types";
+import { AddProductType, CreateUserType } from "../types";
 
 const productPrototype: AddProductType = {
   name: "Product 0",
@@ -39,7 +39,7 @@ const productsArray = [
   fifthProduct,
 ];
 
-const userCredentials: SignupType = {
+const userCredentials: CreateUserType = {
   firstname: "Malak",
   lastname: "Joseph",
   password: "123123",

@@ -5,9 +5,4 @@ export type UserType = {
   password: string;
 };
 
-export type LoginType = {
-  username: string;
-  password: string;
-};
-
-export type SignupType = Omit<UserType, "id">;
+export type CreateUserType = Omit<UserType, "id">;
