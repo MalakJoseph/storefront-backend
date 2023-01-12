@@ -9,11 +9,11 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### Products
 
 - Index `'products/' [GET]`
-- Show `'products/:id' [GET]`
+- Show `'products/show/:id' [GET]`
 - Create [token required] `'products/' [POST] (token)`
 - Delete [token required] `'products/:id' [DELETE] (token)`
 - Product bulk upload (args: array of products) `'products' [POST] (token)` **_HOT_**
-- Top 5 most popular products `'products?count=5' [GET]`
+- Top 5 most expensive products `'products?count=5' [GET]`
 - Products by category (args: product category) `'products/:category' [GET]`
 
 #### Users
@@ -32,6 +32,13 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Current Orders by user (args: user id)[token required] `'orders/:user_id' [GET] (token)`
 - Place Order (args: order id)[token required] `'orders/:order_id' [PUT] (token)` // to set status to `completed`
 - Completed Orders by user (args: user id)[token required] `'orders/:user_id/completed' [GET] (token)`
+
+#### Order Products
+
+- Index [token required] `'/orders/:order_id' [GET]`
+- Create [token required] `'/orders/:order_id/order-products/:order_product_id' [POST]`
+- Update [token required] `'/orders/:order_id/order-products' [PUT]`
+- Delete [token required] `'/orders/:order_id/order-products/:order_product_id' [DELETE]`
 
 ## Data Shapes
 
@@ -63,7 +70,18 @@ users (
 orders (
   id SERIAL PRIMARY KEY,
   status VARCHAR(20) DEFAULT 'active' CHECK (status IN ('active', 'completed')),
-  user_id INTEGER REFERENCES users(id) NOT NULL ON DELETE CASCADE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
   created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+#### Orders Products
+
+```
+order_products (
+  id SERIAL PRIMARY KEY,
+  quantity INTEGER DEFAULT 1,
+  order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE NOT NULL,
+  product_id INTEGER REFERENCES products(id) ON DELETE CASCADE NOT NULL
 );
 ```
