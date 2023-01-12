@@ -18,6 +18,9 @@ const auth = (req: Request, _res: Response, next: NextFunction): void => {
     jwt.verify(token, tokenSecret);
 
     next();
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 401, message: error.message });
   }

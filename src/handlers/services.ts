@@ -25,6 +25,9 @@ async function createProducts(req: Request, res: Response, next: NextFunction) {
     const result = await services.createProducts(products);
 
     res.status(201).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 404, message: `Bad inputs. ${error.message}` });
   }
@@ -36,6 +39,9 @@ async function topExpensive(req: Request, res: Response, next: NextFunction) {
     const result = await services.topExpensive(count);
 
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 404, message: error.message });
   }
@@ -57,6 +63,9 @@ async function getProductsByCategory(
         });
 
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 404, message: error.message });
   }
@@ -77,6 +86,9 @@ async function currentOrdersByUser(
         });
 
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 404, message: error.message });
   }
@@ -86,6 +98,9 @@ async function placeOrder(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await services.placeOrder(+req.params.order_id);
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 404, message: error.message });
   }
@@ -99,6 +114,9 @@ async function completedOrdersByUser(
   try {
     const result = await services.completedOrdersByUser(+req.params.user_id);
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 404, message: error.message });
   }

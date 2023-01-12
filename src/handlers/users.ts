@@ -32,6 +32,9 @@ async function createUser(req: Request, res: Response, next: NextFunction) {
     const token = jwt.sign(result, tokenSecret);
 
     res.status(201).json({ token, id: result.id });
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 400, message: error.message });
   }
@@ -41,6 +44,9 @@ async function getUsers(_req: Request, res: Response, next: NextFunction) {
   try {
     const result = await user.getUsers();
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 401, message: error.message });
   }
@@ -50,6 +56,9 @@ async function getUserByID(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await user.getUserByID(+req.params.id);
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 401, message: error.message });
   }
@@ -59,6 +68,9 @@ async function deleteUser(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await user.deleteUser(+req.params.id);
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 401, message: error.message });
   }

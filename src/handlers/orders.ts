@@ -18,6 +18,9 @@ async function createOrder(req: Request, res: Response, next: NextFunction) {
     });
 
     res.status(201).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 400, message: error.message });
   }
@@ -27,6 +30,9 @@ async function getOrders(_req: Request, res: Response, next: NextFunction) {
   try {
     const result = await order.getOrders();
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 401, message: error.message });
   }
@@ -36,6 +42,9 @@ async function getOrderByID(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await order.getOrderByID(+req.params.id);
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 401, message: error.message });
   }
@@ -45,6 +54,9 @@ async function deleteOrder(req: Request, res: Response, next: NextFunction) {
   try {
     const result = await order.deleteOrder(+req.params.id);
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 401, message: error.message });
   }

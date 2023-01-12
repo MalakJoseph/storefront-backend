@@ -27,6 +27,9 @@ async function addOrderProducts(
     const result = await orderProducts.addOrderProducts(orderProductData);
 
     res.status(201).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ status: 400, message: error.message });
   }
@@ -46,6 +49,9 @@ async function getOrderProducts(
     }
 
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ message: error.message });
   }
@@ -78,6 +84,9 @@ async function updateOrderProducts(
     }
 
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ message: error.message });
   }
@@ -97,6 +106,9 @@ async function deleteOrderProducts(
     }
 
     res.status(200).json(result);
+
+    // No type can be asserted to the catch clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     next({ message: error.message });
   }

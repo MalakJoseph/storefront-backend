@@ -18,7 +18,6 @@
   "rules": {
     "prettier/prettier": 1,
     "quotes": ["warn", "double"],
-    "no-console": 1,
-    "@typescript-eslint/no-explicit-any": 0
+    "no-console": 1
   }
 }
