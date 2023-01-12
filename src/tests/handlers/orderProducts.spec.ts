@@ -24,7 +24,10 @@ describe("Orders_Products Handler Suite", () => {
         .send(firstProduct)
     ).body.id;
     orderID = (
-      await request.post("/orders").send({ ...firstOrder, user_id: userID })
+      await request
+        .post("/orders")
+        .set("Authorization", userToken)
+        .send({ ...firstOrder, user_id: userID })
     ).body.id;
   });
 

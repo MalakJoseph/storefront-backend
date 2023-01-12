@@ -8,16 +8,21 @@ const request = supertest(app);
 
 const count = 3;
 const category: Category = "Entertainment";
-let userToken = "Bearer ";
-let userID: number;
 let orderID: number;
+let userID: number;
+let userToken = "Bearer ";
 
 describe("Services Handler Suite", () => {
   beforeAll(async () => {
     const result = await request.post("/users").send(firstUser);
     userToken += result.body.token;
     userID = result.body.id;
-    orderID = (await request.post("/orders").send(firstOrder)).body.id;
+    orderID = (
+      await request
+        .post("/orders")
+        .set("Authorization", userToken)
+        .send({ ...firstOrder, user_id: userID })
+    ).body.id;
   });
 
   afterAll(async () => {

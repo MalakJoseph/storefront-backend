@@ -7,10 +7,13 @@ const request = supertest(app);
 
 const orderID = 1;
 let userID: number;
+let userToken = "Bearer ";
 
 describe("Orders Handler Suite", () => {
   beforeAll(async () => {
-    userID = (await request.post("/users").send(firstUser)).body.id;
+    const user = await request.post("/users").send(firstUser);
+    userID = user.body.id;
+    userToken += user.body.token;
   });
 
   afterAll(async () => {
@@ -26,25 +29,30 @@ describe("Orders Handler Suite", () => {
   it("Should create an order successfully", async () => {
     const result = await request
       .post("/orders")
+      .set("Authorization", userToken)
       .send({ ...firstOrder, user_id: userID });
 
     expect(result.statusCode).toBe(201);
   });
 
   it("Should fetch all orders successfully", async () => {
-    const result = await request.get("/orders");
+    const result = await request.get("/orders").set("Authorization", userToken);
 
     expect(result.statusCode).toBe(200);
   });
 
   it("Should fetch order by id successfully", async () => {
-    const result = await request.get(`/orders/${orderID}`);
+    const result = await request
+      .get(`/orders/${orderID}`)
+      .set("Authorization", userToken);
 
     expect(result.statusCode).toBe(200);
   });
 
   it("Should delete order by id successfully", async () => {
-    const result = await request.delete(`/orders/${orderID}`);
+    const result = await request
+      .delete(`/orders/${orderID}`)
+      .set("Authorization", userToken);
 
     expect(result.statusCode).toBe(200);
   });

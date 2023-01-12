@@ -1,4 +1,5 @@
 import { Application, NextFunction, Request, Response } from "express";
+import { auth } from "../middlewares";
 import { OrderModel } from "../models";
 
 const order = new OrderModel();
@@ -50,10 +51,10 @@ async function deleteOrder(req: Request, res: Response, next: NextFunction) {
 }
 
 const ordersRoutes = (app: Application) => {
-  app.post("/orders", createOrder);
-  app.get("/orders", getOrders);
-  app.get("/orders/:id", getOrderByID);
-  app.delete("/orders/:id", deleteOrder);
+  app.post("/orders", auth, createOrder);
+  app.get("/orders", auth, getOrders);
+  app.get("/orders/:id", auth, getOrderByID);
+  app.delete("/orders/:id", auth, deleteOrder);
 };
 
 export { ordersRoutes };

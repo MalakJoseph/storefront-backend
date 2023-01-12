@@ -73,7 +73,7 @@ async function currentOrdersByUser(
       ? products
       : next({
           status: 404,
-          message: "Sorry couldn't find any products.",
+          message: "Sorry couldn't find any orders.",
         });
 
     res.status(200).json(result);
