@@ -53,6 +53,7 @@ All models and handlers are tested using Jasmine.
 3. On another terminal run
    - `yarn`
    - `yarn migrate-up`
+4. Default `PORT=5432` for database and `PORT=3000` for express server.
 
 Don't forget to alter between _development_ and _testing_ databases using `NODE_ENV` in `.env` file.
 
