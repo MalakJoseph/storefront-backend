@@ -40,7 +40,7 @@ describe("Products Handler Suite", () => {
   });
 
   it("Should fetch product by id successfully", async () => {
-    const result = await request.get(`/products/${productID}`);
+    const result = await request.get(`/products/show/${productID}`);
 
     expect(result.statusCode).toBe(200);
   });

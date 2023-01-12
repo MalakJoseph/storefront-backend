@@ -1,8 +1,13 @@
 import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import { errorHandler } from "./middlewares";
-import { productsRoutes, servicesRoutes, userRoutes } from "./handlers";
-import { ordersRoutes } from "./handlers/orders";
+import {
+  orderProductsRoutes,
+  ordersRoutes,
+  productsRoutes,
+  servicesRoutes,
+  userRoutes,
+} from "./handlers";
 
 const app: express.Application = express();
 const address = "http://localhost:3000";
@@ -13,8 +18,9 @@ app.get("/", function (_req: Request, res: Response) {
   res.send("Welcome to Storefront Backend!");
 });
 
-productsRoutes(app);
 ordersRoutes(app);
+orderProductsRoutes(app);
+productsRoutes(app);
 userRoutes(app);
 servicesRoutes(app);
 
