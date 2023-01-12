@@ -1,3 +1,3 @@
-export { Product } from "./Product";
-export { Order } from "./Order";
-export { User } from "./User";
+export { ProductModel } from "./Product";
+export { OrderModel } from "./Order";
+export { UserModel } from "./User";

@@ -1,21 +1,21 @@
 import { Application, NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { User } from "../models";
+import { UserModel } from "../models";
 import { auth } from "../middlewares";
 
 const pepper = process.env.BCRYPT_PASSWORD as string;
 const saltRounds = process.env.SALT_ROUNDS as string;
 const tokenSecret = process.env.TOKEN_SECRET as string;
 
-const user = new User();
+const user = new UserModel();
 
 async function createUser(req: Request, res: Response, next: NextFunction) {
   try {
     const { firstname, lastname, password } = req.body;
 
     if (!firstname || !lastname || !password) {
-      throw new Error("Input is missing");
+      throw new Error("Missing inputs");
     }
 
     const hashedPassword = bcrypt.hashSync(

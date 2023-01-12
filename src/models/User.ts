@@ -1,13 +1,13 @@
 import pool from "../database";
-import { CreateUserType, UserType } from "../types";
+import { CreateUser, User } from "../types";
 
-export class User {
-  async createUser(user: CreateUserType): Promise<UserType> {
+export class UserModel {
+  async createUser(user: CreateUser): Promise<User> {
     try {
       const conn = await pool.connect();
       const sql =
         "INSERT INTO users (firstName, lastName, password) VALUES ($1, $2, $3) RETURNING *";
-      const result = await conn.query<UserType>(sql, [
+      const result = await conn.query<User>(sql, [
         user.firstname,
         user.lastname,
         user.password,
@@ -21,11 +21,11 @@ export class User {
     }
   }
 
-  async getUsers(): Promise<Partial<UserType>[]> {
+  async getUsers(): Promise<Partial<User>[]> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM users";
-      const result = await conn.query<Partial<UserType>>(sql);
+      const result = await conn.query<Partial<User>>(sql);
 
       conn.release();
 
@@ -39,11 +39,11 @@ export class User {
     }
   }
 
-  async getUserByID(userID: UserType["id"]): Promise<Partial<UserType>> {
+  async getUserByID(userID: User["id"]): Promise<Partial<User>> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM users WHERE id=$1";
-      const result = await conn.query<Partial<UserType>>(sql, [userID]);
+      const result = await conn.query<Partial<User>>(sql, [userID]);
 
       conn.release();
 
@@ -55,7 +55,7 @@ export class User {
     }
   }
 
-  async deleteUser(id: UserType["id"]): Promise<Record<"id", number>> {
+  async deleteUser(id: User["id"]): Promise<Record<"id", number>> {
     try {
       const conn = await pool.connect();
       const sql = "DELETE FROM users WHERE id=$1 RETURNING id";

@@ -1,8 +1,8 @@
-import { Order, User } from "../../models";
-import { firstOrder, userCredentials } from "../../consts";
+import { OrderModel, UserModel } from "../../models";
+import { firstOrder, firstUser } from "../../consts";
 
-const order = new Order();
-const user = new User();
+const order = new OrderModel();
+const user = new UserModel();
 
 let userID: number;
 let orderID: number;
@@ -10,11 +10,11 @@ let created_at: Date;
 
 describe("Order Model Suite", () => {
   beforeAll(async () => {
-    userID = (await user.createUser(userCredentials)).id;
+    userID = (await user.createUser(firstUser)).id;
   });
 
-  it("Should add an order", async () => {
-    const result = await order.CreateOrder({ ...firstOrder, user_id: userID });
+  it("Should create an order", async () => {
+    const result = await order.createOrder({ ...firstOrder, user_id: userID });
     orderID = result.id;
     created_at = result.created_at;
 
@@ -47,7 +47,7 @@ describe("Order Model Suite", () => {
   });
 
   it("Should delete order by id", async () => {
-    const result = await order.DeleteOrder(orderID);
+    const result = await order.deleteOrder(orderID);
     expect(result.id).toBe(orderID);
   });
 });

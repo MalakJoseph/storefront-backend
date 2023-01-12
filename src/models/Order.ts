@@ -1,13 +1,13 @@
 import pool from "../database";
-import { CreateOrderType, OrderType } from "../types";
+import { CreateOrder, Order } from "../types";
 
-export class Order {
-  async CreateOrder(order: CreateOrderType): Promise<OrderType> {
+export class OrderModel {
+  async createOrder(order: CreateOrder): Promise<Order> {
     try {
       const conn = await pool.connect();
       const sql =
         "INSERT INTO orders (user_id, status) VALUES ($1, $2) RETURNING *";
-      const result = await conn.query<OrderType>(sql, [
+      const result = await conn.query<Order>(sql, [
         order.user_id,
         order.status,
       ]);
@@ -20,11 +20,11 @@ export class Order {
     }
   }
 
-  async getOrders(): Promise<OrderType[]> {
+  async getOrders(): Promise<Order[]> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM orders";
-      const result = await conn.query<OrderType>(sql);
+      const result = await conn.query<Order>(sql);
 
       conn.release();
 
@@ -34,11 +34,11 @@ export class Order {
     }
   }
 
-  async getOrderByID(id: OrderType["id"]): Promise<OrderType> {
+  async getOrderByID(id: Order["id"]): Promise<Order> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM orders WHERE id=$1";
-      const result = await conn.query<OrderType>(sql, [id]);
+      const result = await conn.query<Order>(sql, [id]);
 
       conn.release();
 
@@ -48,7 +48,7 @@ export class Order {
     }
   }
 
-  async DeleteOrder(id: OrderType["id"]): Promise<Record<"id", number>> {
+  async deleteOrder(id: Order["id"]): Promise<Record<"id", number>> {
     try {
       const conn = await pool.connect();
       const sql = "DELETE FROM orders WHERE id=$1 RETURNING id";

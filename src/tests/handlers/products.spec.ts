@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import { firstProduct, userCredentials } from "../../consts";
+import { firstProduct, firstUser } from "../../consts";
 import pool from "../../database";
 import app from "../../server";
 
@@ -10,19 +10,21 @@ let userToken = "Bearer ";
 
 describe("Products Handler Suite", () => {
   beforeAll(async () => {
-    const result = await request.post("/users").send(userCredentials);
+    const result = await request.post("/users").send(firstUser);
     userToken += result.body.token;
   });
 
   afterAll(async () => {
     const conn = await pool.connect();
-    const sql =
-      "DELETE FROM products;\nALTER SEQUENCE products_id_seq RESTART WITH 1;\nDELETE FROM users;\nALTER SEQUENCE users_id_seq RESTART WITH 1;";
+    const sql = `DELETE FROM products;
+      ALTER SEQUENCE products_id_seq RESTART WITH 1;
+      DELETE FROM users;
+      ALTER SEQUENCE users_id_seq RESTART WITH 1;`;
     conn.query(sql);
     conn.release();
   });
 
-  it("Should create a product sucessfully", async () => {
+  it("Should create a product successfully", async () => {
     const result = await request
       .post("/products")
       .set("Authorization", userToken)
@@ -31,21 +33,21 @@ describe("Products Handler Suite", () => {
     expect(result.statusCode).toBe(201);
   });
 
-  it("Should fetch all products sucessfully", async () => {
+  it("Should fetch all products successfully", async () => {
     const result = await request.get("/products");
 
     expect(result.statusCode).toBe(200);
   });
 
-  it("Should fetch product by id sucessfully", async () => {
-    const result = await request.get(`/products/show/${productID}`);
+  it("Should fetch product by id successfully", async () => {
+    const result = await request.get(`/products/${productID}`);
 
     expect(result.statusCode).toBe(200);
   });
 
-  it("Should delete product by id sucessfully", async () => {
+  it("Should delete product by id successfully", async () => {
     const result = await request
-      .delete(`/products/delete/${productID}`)
+      .delete(`/products/${productID}`)
       .set("Authorization", userToken);
 
     expect(result.statusCode).toBe(200);

@@ -1,17 +1,17 @@
 import { Application, NextFunction, Request, Response } from "express";
-import { Order } from "../models";
+import { OrderModel } from "../models";
 
-const order = new Order();
+const order = new OrderModel();
 
-async function CreateOrder(req: Request, res: Response, next: NextFunction) {
+async function createOrder(req: Request, res: Response, next: NextFunction) {
   try {
     const { user_id, status } = req.body;
 
     if (!user_id) {
-      throw new Error("Input is missing");
+      throw new Error("Missing inputs");
     }
 
-    const result = await order.CreateOrder({
+    const result = await order.createOrder({
       user_id,
       status,
     });
@@ -40,9 +40,9 @@ async function getOrderByID(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function DeleteOrder(req: Request, res: Response, next: NextFunction) {
+async function deleteOrder(req: Request, res: Response, next: NextFunction) {
   try {
-    const result = await order.DeleteOrder(+req.params.id);
+    const result = await order.deleteOrder(+req.params.id);
     res.status(200).json(result);
   } catch (error: any) {
     next({ status: 401, message: error.message });
@@ -50,10 +50,10 @@ async function DeleteOrder(req: Request, res: Response, next: NextFunction) {
 }
 
 const ordersRoutes = (app: Application) => {
-  app.post("/orders", CreateOrder);
+  app.post("/orders", createOrder);
   app.get("/orders", getOrders);
-  app.get("/orders/show/:id", getOrderByID);
-  app.delete("/orders/delete/:id", DeleteOrder);
+  app.get("/orders/:id", getOrderByID);
+  app.delete("/orders/:id", deleteOrder);
 };
 
 export { ordersRoutes };

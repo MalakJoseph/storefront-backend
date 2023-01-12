@@ -1,12 +1,12 @@
-import { UserType } from "./user";
+import { User } from "./user";
 
 export type Status = "active" | "completed";
 
-export type OrderType = {
+export type Order = {
   id: number;
   status?: Status;
-  user_id: UserType["id"];
+  user_id: User["id"];
   created_at: Date;
 };
 
-export type CreateOrderType = Pick<OrderType, "status" | "user_id">;
+export type CreateOrder = Pick<Order, "status" | "user_id">;

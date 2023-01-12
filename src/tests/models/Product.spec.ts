@@ -1,13 +1,13 @@
-import { Product } from "../../models";
+import { ProductModel } from "../../models";
 import { firstProduct } from "../../consts";
 
-const product = new Product();
+const product = new ProductModel();
 
 let productID: number;
 
 describe("Product Model Suite", () => {
-  it("Should add a product", async () => {
-    const result = await product.addProduct(firstProduct);
+  it("Should create a product", async () => {
+    const result = await product.createProduct(firstProduct);
     productID = result.id;
     expect(result).toEqual({ ...firstProduct, id: productID });
   });

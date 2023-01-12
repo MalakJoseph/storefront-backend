@@ -1,10 +1,10 @@
 export type Category = "Entertainment" | "Jewelry";
 
-export type ProductType = {
+export type Product = {
   id: number;
   name: string;
   price: number;
   category: Category;
 };
 
-export type AddProductType = Omit<ProductType, "id">;
+export type CreateProduct = Omit<Product, "id">;

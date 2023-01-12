@@ -1,18 +1,18 @@
 import { Application, NextFunction, Request, Response } from "express";
-import { Product } from "../models";
+import { ProductModel } from "../models";
 import { auth } from "../middlewares";
 
-const product = new Product();
+const product = new ProductModel();
 
-async function addProduct(req: Request, res: Response, next: NextFunction) {
+async function createProduct(req: Request, res: Response, next: NextFunction) {
   try {
     const { name, price, category } = req.body;
 
     if (!name || !price) {
-      throw new Error("Input is missing");
+      throw new Error("Missing inputs");
     }
 
-    const result = await product.addProduct({
+    const result = await product.createProduct({
       name,
       price,
       category,
@@ -52,10 +52,10 @@ async function deleteProduct(req: Request, res: Response, next: NextFunction) {
 }
 
 const productsRoutes = (app: Application) => {
-  app.post("/products", auth, addProduct);
+  app.post("/products", auth, createProduct);
   app.get("/products", getProducts);
-  app.get("/products/show/:id", getProductByID);
-  app.delete("/products/delete/:id", auth, deleteProduct);
+  app.get("/products/:id", getProductByID);
+  app.delete("/products/:id", auth, deleteProduct);
 };
 
 export { productsRoutes };

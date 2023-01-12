@@ -1,33 +1,37 @@
-import { Services } from "../../services";
-import { firstOrder, productsArray, userCredentials } from "../../consts";
-import { Order, Product, User } from "../../models";
+import { ServicesModel } from "../../services";
+import { firstOrder, productsArray, firstUser } from "../../consts";
+import { OrderModel, ProductModel, UserModel } from "../../models";
 import pool from "../../database";
 
-const services = new Services();
-const product = new Product();
-const order = new Order();
-const user = new User();
+const services = new ServicesModel();
+const product = new ProductModel();
+const order = new OrderModel();
+const user = new UserModel();
 
 const count = 5;
 let userID: number;
 let orderID: number;
 
-describe("Services Suite", () => {
+describe("Services Model Suite", () => {
   beforeAll(async () => {
-    userID = (await user.createUser(userCredentials)).id;
-    orderID = (await order.CreateOrder({ ...firstOrder, user_id: userID })).id;
+    userID = (await user.createUser(firstUser)).id;
+    orderID = (await order.createOrder({ ...firstOrder, user_id: userID })).id;
   });
 
   afterAll(async () => {
     const conn = await pool.connect();
-    const sql =
-      "DELETE FROM orders;\nALTER SEQUENCE orders_id_seq RESTART WITH 1;\nDELETE FROM products;\nALTER SEQUENCE products_id_seq RESTART WITH 1;\nDELETE FROM users;\nALTER SEQUENCE users_id_seq RESTART WITH 1;";
+    const sql = `DELETE FROM orders;
+      ALTER SEQUENCE orders_id_seq RESTART WITH 1;
+      DELETE FROM products;
+      ALTER SEQUENCE products_id_seq RESTART WITH 1;
+      DELETE FROM users;
+      ALTER SEQUENCE users_id_seq RESTART WITH 1;`;
     conn.query(sql);
     conn.release();
   });
 
   it("Should add a products array", async () => {
-    const result = await services.addProducts(productsArray);
+    const result = await services.createProducts(productsArray);
     const comparedTo = await product.getProducts();
 
     expect(result).toEqual(comparedTo);

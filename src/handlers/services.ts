@@ -1,13 +1,13 @@
 import { Application, NextFunction, Request, Response } from "express";
-import { Services } from "../services";
+import { ServicesModel } from "../services";
 import { auth } from "../middlewares";
-import { AddProductType, Category } from "../types";
+import { CreateProduct, Category } from "../types";
 
-const services = new Services();
+const services = new ServicesModel();
 
-async function addProducts(req: Request, res: Response, next: NextFunction) {
+async function createProducts(req: Request, res: Response, next: NextFunction) {
   try {
-    const products = req.body as AddProductType[];
+    const products = req.body as CreateProduct[];
     let isMandatoryPropsExist = false;
 
     for (let i = 0; i < products.length; i++) {
@@ -19,10 +19,10 @@ async function addProducts(req: Request, res: Response, next: NextFunction) {
     }
 
     if (!isMandatoryPropsExist) {
-      next({ status: 400, message: "Input is missing" });
+      next({ status: 400, message: "Missing inputs" });
     }
 
-    const result = await services.addProducts(products);
+    const result = await services.createProducts(products);
 
     res.status(201).json(result);
   } catch (error: any) {
@@ -105,7 +105,7 @@ async function completedOrdersByUser(
 }
 
 const servicesRoutes = (app: Application) => {
-  app.post("/products/bulk", auth, addProducts);
+  app.post("/products/bulk", auth, createProducts);
   app.get("/products/sort", topExpensive);
   app.get("/products/filter", getProductsByCategory);
   app.get("/orders/:user_id", auth, currentOrdersByUser);

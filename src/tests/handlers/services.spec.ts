@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import { firstOrder, productsArray, userCredentials } from "../../consts";
+import { firstOrder, productsArray, firstUser } from "../../consts";
 import pool from "../../database";
 import app from "../../server";
 import { Category } from "../../types";
@@ -12,9 +12,9 @@ let userToken = "Bearer ";
 let userID: number;
 let orderID: number;
 
-describe("Services Suite", () => {
+describe("Services Handler Suite", () => {
   beforeAll(async () => {
-    const result = await request.post("/users").send(userCredentials);
+    const result = await request.post("/users").send(firstUser);
     userToken += result.body.token;
     userID = result.body.id;
     orderID = (await request.post("/orders").send(firstOrder)).body.id;
@@ -22,13 +22,17 @@ describe("Services Suite", () => {
 
   afterAll(async () => {
     const conn = await pool.connect();
-    const sql =
-      "DELETE FROM orders;\nALTER SEQUENCE orders_id_seq RESTART WITH 1;\nDELETE FROM products;\nALTER SEQUENCE products_id_seq RESTART WITH 1;\nDELETE FROM users;\nALTER SEQUENCE users_id_seq RESTART WITH 1;";
+    const sql = `DELETE FROM orders;
+      ALTER SEQUENCE orders_id_seq RESTART WITH 1;
+      DELETE FROM products;
+      ALTER SEQUENCE products_id_seq RESTART WITH 1;
+      DELETE FROM users;
+      ALTER SEQUENCE users_id_seq RESTART WITH 1;`;
     conn.query(sql);
     conn.release();
   });
 
-  it("Should add multiple products in array", async () => {
+  it("Should create multiple products in array", async () => {
     const result = await request
       .post("/products/bulk")
       .set("Authorization", userToken)

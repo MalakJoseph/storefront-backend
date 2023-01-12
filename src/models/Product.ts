@@ -1,13 +1,13 @@
 import pool from "../database";
-import { AddProductType, ProductType } from "../types";
+import { CreateProduct, Product } from "../types";
 
-export class Product {
-  async addProduct(product: AddProductType): Promise<ProductType> {
+export class ProductModel {
+  async createProduct(product: CreateProduct): Promise<Product> {
     try {
       const conn = await pool.connect();
       const sql =
         "INSERT INTO products (name, price, category) VALUES ($1, $2, $3) RETURNING *";
-      const result = await conn.query<ProductType>(sql, [
+      const result = await conn.query<Product>(sql, [
         product.name,
         product.price,
         product.category,
@@ -21,11 +21,11 @@ export class Product {
     }
   }
 
-  async getProducts(): Promise<ProductType[]> {
+  async getProducts(): Promise<Product[]> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM products";
-      const result = await conn.query<ProductType>(sql);
+      const result = await conn.query<Product>(sql);
 
       conn.release();
 
@@ -35,11 +35,11 @@ export class Product {
     }
   }
 
-  async getProductByID(id: ProductType["id"]): Promise<ProductType> {
+  async getProductByID(id: Product["id"]): Promise<Product> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM products WHERE id=$1";
-      const result = await conn.query<ProductType>(sql, [id]);
+      const result = await conn.query<Product>(sql, [id]);
 
       conn.release();
 
@@ -49,7 +49,7 @@ export class Product {
     }
   }
 
-  async deleteProduct(id: ProductType["id"]): Promise<Record<"id", number>> {
+  async deleteProduct(id: Product["id"]): Promise<Record<"id", number>> {
     try {
       const conn = await pool.connect();
       const sql = "DELETE FROM products WHERE id=$1 RETURNING id";

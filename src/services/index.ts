@@ -1,17 +1,11 @@
 import pool from "../database";
-import { Product } from "../models";
-import {
-  AddProductType,
-  Category,
-  OrderType,
-  ProductType,
-  UserType,
-} from "../types";
+import { ProductModel } from "../models";
+import { CreateProduct, Category, Order, Product, User } from "../types";
 
-const product = new Product();
+const product = new ProductModel();
 
-export class Services {
-  async addProducts(productsArray: AddProductType[]): Promise<ProductType[]> {
+export class ServicesModel {
+  async createProducts(productsArray: CreateProduct[]): Promise<Product[]> {
     try {
       const conn = await pool.connect();
       const result = await bulkUpload(productsArray);
@@ -24,11 +18,11 @@ export class Services {
     }
   }
 
-  async topExpensive(count: number): Promise<ProductType[]> {
+  async topExpensive(count: number): Promise<Product[]> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM products ORDER BY price DESC LIMIT $1";
-      const result = await conn.query<ProductType>(sql, [count]);
+      const result = await conn.query<Product>(sql, [count]);
 
       conn.release();
 
@@ -38,11 +32,11 @@ export class Services {
     }
   }
 
-  async getProductsByCategory(category: Category): Promise<ProductType[]> {
+  async getProductsByCategory(category: Category): Promise<Product[]> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM products WHERE category=$1";
-      const result = await conn.query<ProductType>(sql, [category]);
+      const result = await conn.query<Product>(sql, [category]);
 
       conn.release();
 
@@ -52,11 +46,11 @@ export class Services {
     }
   }
 
-  async currentOrdersByUser(user_id: UserType["id"]): Promise<OrderType[]> {
+  async currentOrdersByUser(user_id: User["id"]): Promise<Order[]> {
     try {
       const conn = await pool.connect();
       const sql = "SELECT * FROM orders WHERE user_id=$1";
-      const result = await conn.query<OrderType>(sql, [user_id]);
+      const result = await conn.query<Order>(sql, [user_id]);
 
       conn.release();
 
@@ -66,12 +60,12 @@ export class Services {
     }
   }
 
-  async placeOrder(order_id: OrderType["id"]): Promise<OrderType> {
+  async placeOrder(order_id: Order["id"]): Promise<Order> {
     try {
       const conn = await pool.connect();
       const sql =
         "UPDATE orders SET status='completed' WHERE id=$1 RETURNING *;";
-      const result = await conn.query<OrderType>(sql, [order_id]);
+      const result = await conn.query<Order>(sql, [order_id]);
 
       conn.release();
 
@@ -81,12 +75,12 @@ export class Services {
     }
   }
 
-  async completedOrdersByUser(user_id: UserType["id"]): Promise<OrderType[]> {
+  async completedOrdersByUser(user_id: User["id"]): Promise<Order[]> {
     try {
       const conn = await pool.connect();
       const sql =
         "SELECT * FROM orders WHERE user_id=$1 AND status='completed'";
-      const result = await conn.query<OrderType>(sql, [user_id]);
+      const result = await conn.query<Order>(sql, [user_id]);
 
       conn.release();
 
@@ -100,12 +94,10 @@ export class Services {
 /**
  * Creates products with each instance of the array passed
  */
-async function bulkUpload(
-  productsArray: AddProductType[]
-): Promise<ProductType[]> {
+async function bulkUpload(productsArray: CreateProduct[]): Promise<Product[]> {
   const addedProducts = await Promise.all(
     productsArray.map(async (productToAdd) => {
-      const result = await product.addProduct(productToAdd);
+      const result = await product.createProduct(productToAdd);
       return result;
     })
   );
