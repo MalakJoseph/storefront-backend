@@ -12,7 +12,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Show `'products/show/:id' [GET]`
 - Create [token required] `'products/' [POST] (token)`
 - Delete [token required] `'products/:id' [DELETE] (token)`
-- Product bulk upload (args: array of products) `'products' [POST] (token)` **_HOT_**
+- Product bulk upload (args: array of products)[token required] `'products' [POST] (token)` **_HOT_**
 - Top 5 most expensive products `'products?count=5' [GET]`
 - Products by category (args: product category) `'products/:category' [GET]`
 
@@ -25,10 +25,10 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Orders
 
-- Index [token required] `'orders/' [GET]`
-- Show [token required] `'orders/:id' [GET]`
-- Create [token required] `'orders/' [POST]`
-- Delete [token required] `'orders/:id' [DELETE]`
+- Index [token required] `'orders/' [GET] (token)`
+- Show [token required] `'orders/:id' [GET] (token)`
+- Create [token required] `'orders/' [POST] (token)`
+- Delete [token required] `'orders/:id' [DELETE] (token)`
 - Current Orders by user (args: user id)[token required] `'orders/:user_id' [GET] (token)`
 - Place Order (args: order id)[token required] `'orders/:order_id' [PUT] (token)` // to set status to `completed`
 - Completed Orders by user (args: user id)[token required] `'orders/:user_id/completed' [GET] (token)`
