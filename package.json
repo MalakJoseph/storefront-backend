@@ -12,7 +12,8 @@
     "start": "yarn build && node dist/server.js",
     "dev": "nodemon src/server.ts",
     "migrate-up": "db-migrate up",
-    "test": "cross-env NODE_ENV=test yarn build && yarn migrate-up -e test && cross-env NODE_ENV=test jasmine && db-migrate reset -e test",
+    "migrate-reset": "db-migrate reset",
+    "test": "cross-env NODE_ENV=test yarn build && yarn migrate-reset -e test && yarn migrate-up -e test && cross-env NODE_ENV=test jasmine && yarn migrate-reset -e test",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier --write src/**/*.ts"
   },

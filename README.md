@@ -62,9 +62,10 @@ Don't forget to alter between _development_ and _testing_ databases using `NODE_
 1. `"start"` to run the production version from the dist folder.
 2. `"dev"` to run the development version using **nodemon**.
 3. `"migrate-up"` syncing the database by running migration.
-4. `"test"` test using **Jasmine** and clear the test-database after.
-5. `"lint"` for linting with **eslint**.
-6. `"prettier"` formatting.
+4. `"migrate-reset"` erasing the database migrations.
+5. `"test"` test using **Jasmine** and clear the test-database after.
+6. `"lint"` for linting with **eslint**.
+7. `"prettier"` formatting.
 
 ### License
 
